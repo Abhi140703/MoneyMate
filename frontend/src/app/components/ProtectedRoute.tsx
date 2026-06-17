@@ -1,19 +1,21 @@
-// import { Navigate } from "react-router";
+import { Navigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
 
-// export const ProtectedRoute = ({
-//   children,
-// }) => {
-//   const token =
-//     localStorage.getItem("token");
+export const ProtectedRoute = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  const { isAuthenticated } = useAuth();
 
-//   if (!token) {
-//     return (
-//       <Navigate
-//         to="/login"
-//         replace
-//       />
-//     );
-//   }
+  if (!isAuthenticated) {
+    return (
+      <Navigate
+        to="/login"
+        replace
+      />
+    );
+  }
 
-//   return children;
-// };
+  return <>{children}</>;
+};

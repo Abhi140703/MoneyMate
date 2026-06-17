@@ -20,6 +20,7 @@ import { useState } from "react";
 import { useTheme } from "../context/ThemeContext";
 import { Button } from "./ui/button";
 
+
 export function Layout() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);

@@ -38,12 +38,12 @@ export const registerUser = async (
     password: hashed,
   });
 
- res.json({
-  _id: user._id,
-  name: user.name,
-  email: user.email,
-  token: generateToken(user._id),
-});
+  res.json({
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    token: generateToken(user._id),
+  });
 };
 
 export const loginUser = async (
@@ -65,6 +65,8 @@ export const loginUser = async (
   ) {
     res.json({
       _id: user._id,
+      name: user.name,
+      email: user.email,
       token: generateToken(user._id),
     });
   } else {
