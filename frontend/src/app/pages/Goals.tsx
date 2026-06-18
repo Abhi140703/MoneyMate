@@ -58,11 +58,12 @@ export function Goals() {
     const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
     addGoal({
-      name: goalName,
-      targetAmount: parseFloat(targetAmount),
-      targetDate,
-      color: randomColor,
-    });
+  name: goalName,
+  targetAmount: parseFloat(targetAmount),
+  currentAmount: 0,
+  targetDate,
+  color: randomColor,
+});
 
     toast.success("Goal created successfully!");
     setGoalName("");
@@ -77,7 +78,7 @@ export function Goals() {
       return;
     }
 
-    const goal = goals.find((g) => g.id === selectedGoal);
+    const goal = goals.find((g) => g._id === selectedGoal);
     if (!goal) return;
 
     const newAmount = goal.currentAmount + parseFloat(contributionAmount);
@@ -238,7 +239,7 @@ export function Goals() {
 
                   return (
                     <motion.div
-                      key={goal.id}
+                      key={goal._id}
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       className="relative p-6 rounded-2xl bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 border-2 border-slate-200 dark:border-slate-700 hover:shadow-xl transition-all group"
@@ -250,7 +251,7 @@ export function Goals() {
                           variant="ghost"
                           className="h-8 w-8 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm"
                           onClick={() => {
-                            setSelectedGoal(goal.id);
+                            setSelectedGoal(goal._id);
                             setShowContributeDialog(true);
                           }}
                         >
@@ -260,7 +261,7 @@ export function Goals() {
                           size="icon"
                           variant="ghost"
                           className="h-8 w-8 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm text-red-600"
-                          onClick={() => handleDelete(goal.id)}
+                          onClick={() => handleDelete(goal._id)}
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
@@ -329,7 +330,7 @@ export function Goals() {
 
                         <Button
                           onClick={() => {
-                            setSelectedGoal(goal.id);
+                            setSelectedGoal(goal._id);
                             setShowContributeDialog(true);
                           }}
                           className="w-full mt-3"
@@ -365,7 +366,7 @@ export function Goals() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {completedGoals.map((goal) => (
                   <div
-                    key={goal.id}
+                    key={goal._id}
                     className="p-4 rounded-xl bg-white dark:bg-slate-900 border-2 border-green-200 dark:border-green-800"
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -374,7 +375,7 @@ export function Goals() {
                         size="icon"
                         variant="ghost"
                         className="h-7 w-7 text-red-600"
-                        onClick={() => handleDelete(goal.id)}
+                        onClick={() => handleDelete(goal._id)}
                       >
                         <Trash2 className="w-4 h-4" />
                       </Button>
@@ -528,6 +529,12 @@ export function Goals() {
               </Button>
             </div>
           </div>
+          <Button
+        onClick={() => setShowAddDialog(true)}
+        className="fixed bottom-6 right-6 md:hidden h-14 w-14 rounded-full p-0 shadow-xl bg-yellow-600 hover:bg-yellow-700 z-50"
+      >
+        <Plus className="w-6 h-6" />
+      </Button>
         </DialogContent>
       </Dialog>
     </div>
