@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "../components/ui/select";
 import { Switch } from "../components/ui/switch";
+import { useNavigate } from "react-router";
 import { Separator } from "../components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import {
@@ -36,6 +37,15 @@ import { useTheme } from "../context/ThemeContext";
 import { toast } from "sonner";
 
 export function Profile() {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+
+    navigate("/login", { replace: true });
+  };
+
   const { isDark, toggleTheme } = useTheme();
 
   const user = JSON.parse(localStorage.getItem("user") || "{}");
@@ -379,11 +389,7 @@ export function Profile() {
                 <Button
                   variant="outline"
                   className="w-full justify-start text-orange-500"
-                  onClick={() => {
-                    localStorage.removeItem("token");
-                    localStorage.removeItem("user");
-                    window.location.href = "/login";
-                  }}
+                  onClick={handleLogout}
                 >
                   <Lock className="w-4 h-4 mr-2" />
                   Logout

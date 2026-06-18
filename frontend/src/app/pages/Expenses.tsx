@@ -62,7 +62,7 @@ export function Expenses() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -154,7 +154,7 @@ export function Expenses() {
             <CardTitle>Expenses by Category</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {Object.entries(expensesByCategory).map(([category, amount]) => (
                 <div
                   key={category}
@@ -206,12 +206,13 @@ export function Expenses() {
               ) : (
                 expenseTransactions.map((transaction) => (
                   <motion.div
-                    key={transaction.id}
+                    key={transaction._id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="flex items-center justify-between p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group"
+                    className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group"
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-4 flex-1 min-w-0">
+                      {" "}
                       <div className="p-3 rounded-lg bg-gradient-to-br from-red-500 to-red-600 text-white">
                         <TrendingDown className="w-5 h-5" />
                       </div>
@@ -249,8 +250,8 @@ export function Expenses() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <p className="text-xl font-bold text-red-600 dark:text-red-400">
+                    <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
+                      <p className="text-lg sm:text-xl font-bold text-red-600 dark:text-red-400 whitespace-nowrap">
                         -{formatCurrency(transaction.amount)}
                       </p>
 
@@ -262,7 +263,7 @@ export function Expenses() {
                           size="icon"
                           variant="ghost"
                           className="h-8 w-8 text-red-600 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
-                          onClick={() => handleDelete(transaction.id)}
+                          onClick={() => handleDelete(transaction._id)}
                         >
                           <Trash2 className="w-4 h-4" />
                         </Button>
@@ -275,7 +276,12 @@ export function Expenses() {
           </CardContent>
         </Card>
       </motion.div>
-
+      <Button
+        onClick={() => setShowAddDialog(true)}
+        className="fixed bottom-6 right-6 md:hidden h-14 w-14 rounded-full p-0 shadow-xl bg-red-600 hover:bg-red-700 z-50"
+      >
+        <Plus className="w-6 h-6" />
+      </Button>
       <AddTransactionDialog
         open={showAddDialog}
         onOpenChange={setShowAddDialog}
