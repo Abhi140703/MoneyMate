@@ -529,14 +529,14 @@ export function Goals() {
               </Button>
             </div>
           </div>
+        </DialogContent>
+      </Dialog>
           <Button
         onClick={() => setShowAddDialog(true)}
         className="fixed bottom-6 right-6 md:hidden h-14 w-14 rounded-full p-0 shadow-xl bg-yellow-600 hover:bg-yellow-700 z-50"
       >
         <Plus className="w-6 h-6" />
       </Button>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

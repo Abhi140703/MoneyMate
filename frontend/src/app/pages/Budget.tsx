@@ -383,14 +383,14 @@ export function Budget() {
               </Button>
             </div>
           </div>
+        </DialogContent>
+      </Dialog>
           <Button
             onClick={() => setShowAddDialog(true)}
             className="fixed bottom-6 right-6 md:hidden h-14 w-14 rounded-full p-0 shadow-xl bg-blue-600 hover:bg-blue-700 z-50"
           >
             <Plus className="w-6 h-6" />
           </Button>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
