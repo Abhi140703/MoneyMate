@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { loginUser } from "../../services/authService";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate, Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { LogOut } from "lucide-react";
 
 export default function Login() {
@@ -14,11 +14,12 @@ export default function Login() {
     password: "",
   });
 
-  const handleLogout = () => {
-    logout();
-    localStorage.removeItem("user");
-    window.location.href = "/login";
-  };
+ const handleLogout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("user");
+
+  navigate("/login", { replace: true });
+};
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
